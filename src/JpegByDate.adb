@@ -20,26 +20,24 @@ procedure JpegByDate is
    Tiff_Enabled : aliased Boolean := False;
    Excel_Output_Enabled : aliased Boolean := False;
 
-   procedure Display_Help is separate;
-
 begin
 
    Define_Switch (Config, Date'Access, "-d:",
-                  Help => "Date to be searched for");
+                  Help => "[To be implemented] Date to be searched for");
    Define_Switch (Config, Filename'Access, "-f:",
-                  Help => "Filename to be searched for");
+                  Help => "[To be implemented] Filename to be searched for");
    Define_Switch (Config, Path'Access, "-p:",
-                  Help => "Path to the folder to be searched");
+                  Help => "[To be implemented] Path to the folder to be searched");
    Define_Switch (Config, Recursion_Enabled'Access, "-r",
-                  Help => "Enable recursive search in all subfolders");
+                  Help => "[To be implemented] Enable recursive search in all subfolders");
    Define_Switch (Config, Whole_Path_Enabled'Access, "-w",
-                  Help => "Show the whole path name");
+                  Help => "[To be implemented] Show the whole path name");
    Define_Switch (Config, GUI_Mode_Enabled'Access, "-g",
-                  Help => "Enter GUI mode");
+                  Help => "[To be implemented] Enter GUI mode");
    Define_Switch (Config, Tiff_Enabled'Access, "-t",
-                  Help => "Add .tiff-files to the search");
+                  Help => "[To be implemented] Add .tiff-files to the search");
    Define_Switch (Config, Excel_Output_Enabled'Access, "-e",
-                  Help => "Enable Excel output");
+                  Help => "[To be implemented] Enable Excel output");
 
 
    Getopt(Config);
