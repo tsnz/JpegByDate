@@ -26,4 +26,12 @@ package body Pictures is
       return Pic.Coordinates;
    end Get_Coordinates;
 
+   function Create_Picture(ExposureTime : Integer) return PICTURE is
+      Temp : PICTURE;
+   begin
+      Temp.Exposure_Time := ExposureTime;
+      return Temp;
+   end Create_Picture;
+
+
 end Pictures;
