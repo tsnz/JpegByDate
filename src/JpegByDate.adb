@@ -20,27 +20,37 @@ procedure JpegByDate is
    Tiff_Enabled : aliased Boolean := False;
    Excel_Output_Enabled : aliased Boolean := False;
 
+
+
+   procedure DefineInputParameters is
+   begin
+      Define_Switch (Config, Date'Access, "-d:",
+                     Help => "[To be implemented] Date to be searched for");
+      Define_Switch (Config, Filename'Access, "-f:",
+                     Help => "[To be implemented] Filename to be searched for");
+      Define_Switch (Config, Path'Access, "-p:",
+                     Help => "[To be implemented] Path to the folder to be searched");
+      Define_Switch (Config, Recursion_Enabled'Access, "-r",
+                     Help => "[To be implemented] Enable recursive search in all subfolders");
+      Define_Switch (Config, Whole_Path_Enabled'Access, "-w",
+                     Help => "[To be implemented] Show the whole path name");
+      Define_Switch (Config, GUI_Mode_Enabled'Access, "-g",
+                     Help => "[To be implemented] Enter GUI mode");
+      Define_Switch (Config, Tiff_Enabled'Access, "-t",
+                     Help => "[To be implemented] Add .tiff-files to the search");
+      Define_Switch (Config, Excel_Output_Enabled'Access, "-e",
+                     Help => "[To be implemented] Enable Excel output");
+   end DefineInputParameters;
+
+
 begin
 
-   Define_Switch (Config, Date'Access, "-d:",
-                  Help => "[To be implemented] Date to be searched for");
-   Define_Switch (Config, Filename'Access, "-f:",
-                  Help => "[To be implemented] Filename to be searched for");
-   Define_Switch (Config, Path'Access, "-p:",
-                  Help => "[To be implemented] Path to the folder to be searched");
-   Define_Switch (Config, Recursion_Enabled'Access, "-r",
-                  Help => "[To be implemented] Enable recursive search in all subfolders");
-   Define_Switch (Config, Whole_Path_Enabled'Access, "-w",
-                  Help => "[To be implemented] Show the whole path name");
-   Define_Switch (Config, GUI_Mode_Enabled'Access, "-g",
-                  Help => "[To be implemented] Enter GUI mode");
-   Define_Switch (Config, Tiff_Enabled'Access, "-t",
-                  Help => "[To be implemented] Add .tiff-files to the search");
-   Define_Switch (Config, Excel_Output_Enabled'Access, "-e",
-                  Help => "[To be implemented] Enable Excel output");
-
+   DefineInputParameters;
 
    Getopt(Config);
+
+
+
 
 
 end JpegByDate;
