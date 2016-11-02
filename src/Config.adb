@@ -2,7 +2,13 @@
 package body Config is
 
    function Date_Matching(MyConfig : PROGRAM_CONFIG; Date : String) return Boolean is
+      Date_Invalid : exception;
+      Reg_Exp_Str : String := "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]";
+      My_Reg_Exp : Regexp := Compile(Reg_Exp_Str, True, False);
    begin
+      if not (Match(Date, My_Reg_Exp)) then
+         raise Date_Invalid with "Invalid Date";
+      end if;
       for Index in 1..10 loop
          if (MyConfig.Date(Index) /= Date(Index) and then MyConfig.Date(Index) /= '?') then
             return False;
