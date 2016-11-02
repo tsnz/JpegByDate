@@ -1,13 +1,6 @@
 -- Interface of Pictures
 package Pictures is
 
-   type DATE is
-      record
-         Day : Integer range 1..31;
-         Month : Integer range 1..12;
-         Year : Integer range 1..9999;
-   end record;
-
    type PICTURE is tagged private;
 
    function Get_Aperature(Pic : PICTURE) return Integer;
@@ -16,9 +9,6 @@ package Pictures is
    function Get_Date_Taken(Pic : PICTURE) return DATE;
    function Get_Coordinates(Pic : PICTURE) return String;
    function Create_Picture(ExposureTime : Integer) return PICTURE;
-
-
-
 
 private
    type PICTURE is tagged
