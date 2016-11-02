@@ -11,12 +11,12 @@ package body Pictures is
       return Pic.Exposure_Time;
    end Get_Exposure_Time;
 
-   function Get_Date_Edited(Pic : PICTURE) return DATE is
+   function Get_Date_Edited(Pic : PICTURE) return String is
    begin
       return Pic.Date_Edited;
    end Get_Date_Edited;
 
-   function Get_Date_Taken(Pic : PICTURE) return DATE is
+   function Get_Date_Taken(Pic : PICTURE) return String is
    begin
       return Pic.Date_Taken;
    end Get_Date_Taken;
