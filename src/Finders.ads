@@ -1,11 +1,10 @@
 -- Interface of Finders
-with Pictures;
-use Pictures;
+with Pictures; use Pictures;
 
 package Finders is
 
-   type LIST_OF_PICTURES is array(1..10000) of PICTURE;
+   type LIST_OF_PICTURES is array(1..3) of PICTURE;
 
-   function Find(D : IN DATE) return LIST_OF_PICTURES;
+   procedure Scan_By_Date(D : IN DATE; Pic_List : OUT LIST_OF_PICTURES);
 
 end Finders;
