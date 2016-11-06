@@ -3,9 +3,12 @@ with Ada.Text_IO;         use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with GNAT.Strings;  use GNAT.Strings;
 with Pictures; use Pictures;
+with Finders; use Finders;
+with Ada.Strings.Unbounded;
 
 procedure JpegByDate is
 
+   package SU renames Ada.Strings.Unbounded;
 
    Config : Command_Line_Configuration;
    Date    : aliased String_Access;
@@ -20,6 +23,12 @@ procedure JpegByDate is
    Tiff_Enabled : aliased Boolean := False;
    Excel_Output_Enabled : aliased Boolean := False;
 
+   -- temporary
+   Pics : LIST_OF_PICTURES;
+   Test_Date : String(1..10) := "2016-01-01";
+   Pic_Amount : Integer;
+   Pic_Counter : Integer := 1;
+   -------------
 
 
    procedure DefineInputParameters is
@@ -49,7 +58,14 @@ begin
 
    Getopt(Config);
 
+   --for now returns all .jpg and .jpeg files in the execution directory
+   Scan_By_Date(D        => Test_Date,
+                Pic_List => Pics,
+                Number_Of_Pics => Pic_Amount);
 
+   for Pic_Counter in 1..Pic_Amount loop
+      Put_Line(SU.To_String(Pics(Pic_Counter).Filename));
+   end loop;
 
 
 

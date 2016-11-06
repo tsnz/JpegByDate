@@ -1,7 +1,8 @@
 -- Interface of Pictures
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 package Pictures is
 
-   type PICTURE is tagged private;
+   type PICTURE is tagged;
 
    function Get_Aperature(Pic : PICTURE) return Integer;
    function Get_Exposure_Time(Pic : PICTURE) return Integer;
@@ -10,9 +11,10 @@ package Pictures is
    function Get_Coordinates(Pic : PICTURE) return String;
    function Create_Picture(ExposureTime : Integer) return PICTURE;
 
-private
+
    type PICTURE is tagged
       record
+         Filename : Unbounded_String;
          Aperture : Integer;
          Exposure_Time : Integer;
          Date_Edited : String(1..10);
