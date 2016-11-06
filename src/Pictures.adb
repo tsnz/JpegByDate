@@ -26,10 +26,28 @@ package body Pictures is
       return Pic.Coordinates;
    end Get_Coordinates;
 
-   function Create_Picture(ExposureTime : Integer) return PICTURE is
-      Temp : PICTURE;
+
+   function Get_Filename(Pic : PICTURE) return Unbounded_String is
    begin
-      Temp.Exposure_Time := ExposureTime;
+      return Pic.Filename;
+   end Get_Filename;
+
+   function Create_Picture(Filename : Unbounded_String; Aparture : Integer; Exposure_Time : Integer; Date_Edited : String;
+                          Date_Taken : String; Coordinates : String) return PICTURE is
+      Temp : PICTURE;
+      Date_Invalid : exception;
+      Reg_Exp_Str : String := "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]";
+      My_Reg_Exp : Regexp := Compile(Reg_Exp_Str, True, False);
+   begin
+      if not (Match(Date_Edited, My_Reg_Exp)) then
+         raise Date_Invalid with "Invalid Date_Edited";
+      end if;
+      if not (Match(Date_Taken, My_Reg_Exp)) then
+         raise Date_Invalid with "Invalid Date_Taken";
+      end if;
+      Temp.Filename := Filename;
+      Temp.Aperture := Aparture;
+      Temp.Exposure_Time := Exposure_Time;
       return Temp;
    end Create_Picture;
 

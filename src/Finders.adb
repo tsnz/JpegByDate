@@ -33,7 +33,7 @@ package body Finders is
       Line : SU.Unbounded_String;
       --Lenght : Natural;
    begin
-
+      Put_Line(Current_Dir);
       Start_Search(Search_Result, Current_Dir, "", Filter);
 
       while (More_Entries(Search_Result)) loop
@@ -41,7 +41,8 @@ package body Finders is
          Name_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
 
          if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
-            Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
+            --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
+            Pic := Create_Picture(Name_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
             Pic_List(File_Count) := Pic;
             File_Count := File_Count + 1;
             --File_Info_List(File_Count) := (Name => Name_Of_File);

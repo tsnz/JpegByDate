@@ -64,7 +64,8 @@ begin
                 Number_Of_Pics => Pic_Amount);
 
    for Pic_Counter in 1..Pic_Amount loop
-      Put_Line(SU.To_String(Pics(Pic_Counter).Filename));
+      --Put_Line(SU.To_String(Pics(Pic_Counter).Filename));
+      Put_Line(SU.To_String(Get_Filename(Pics(Pic_Counter))));
    end loop;
 
 
