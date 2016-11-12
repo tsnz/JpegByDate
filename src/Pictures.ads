@@ -11,13 +11,15 @@ package Pictures is
    function Get_Date_Taken(Pic : PICTURE) return String;
    function Get_Coordinates(Pic : PICTURE) return String;
    function Get_Filename(Pic : PICTURE) return Unbounded_String;
-   function Create_Picture(Filename : Unbounded_String; Aparture : Integer; Exposure_Time : Integer; Date_Edited : String;
-                          Date_Taken : String; Coordinates : String) return PICTURE;
+   function Get_Picture_Path(Pic : PICTURE) return Unbounded_String;
+   function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
+                           Date_Edited : String; Date_Taken : String; Coordinates : String) return PICTURE;
 
 private
    type PICTURE is tagged
       record
          Filename : Unbounded_String;
+         Path : Unbounded_String;
          Aperture : Integer;
          Exposure_Time : Integer;
          Date_Edited : String(1..10);

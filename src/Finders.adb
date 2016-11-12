@@ -31,6 +31,7 @@ package body Finders is
                                Directory => False);
       Search_Item : Directory_Entry_Type;
       Name_Of_File : SU.Unbounded_String;
+      Path_Of_File : SU.Unbounded_String;
       Pic_File : File_Type;
       Line : SU.Unbounded_String;
       --Lenght : Natural;
@@ -42,13 +43,13 @@ package body Finders is
 
       while (More_Entries(Search_Result)) loop
          Get_Next_Entry(Search_Result, Search_Item);
-         --Name_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
+         Path_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
          Name_Of_File := SU.To_Unbounded_String(Simple_Name(Search_Item));
 
          --if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
          if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
             --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
-            Pic := Create_Picture(Name_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
+            Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
             Pic_List(File_Count) := Pic;
             File_Count := File_Count + 1;
             --File_Info_List(File_Count) := (Name => Name_Of_File);
