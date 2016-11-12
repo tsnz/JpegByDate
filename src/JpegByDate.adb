@@ -5,12 +5,13 @@ with GNAT.Strings;  use GNAT.Strings;
 with Pictures; use Pictures;
 with Finders; use Finders;
 with Ada.Strings.Unbounded;
+with Config; use Config;
 
 procedure JpegByDate is
 
    package SU renames Ada.Strings.Unbounded;
 
-   Config : Command_Line_Configuration;
+   CL_Config : Command_Line_Configuration;
    Date    : aliased String_Access;
    Date_Given : aliased Boolean := False; --default-Wert?
    Filename : aliased String_Access;
@@ -30,24 +31,27 @@ procedure JpegByDate is
    Pic_Counter : Integer := 1;
    -------------
 
+   -- Program Config
+   My_Config : PROGRAM_CONFIG;
+
 
    procedure DefineInputParameters is
    begin
-      Define_Switch (Config, Date'Access, "-d:",
+      Define_Switch (CL_Config, Date'Access, "-d:",
                      Help => "[To be implemented] Date to be searched for");
-      Define_Switch (Config, Filename'Access, "-f:",
+      Define_Switch (CL_Config, Filename'Access, "-f:",
                      Help => "[To be implemented] Filename to be searched for");
-      Define_Switch (Config, Path'Access, "-p:",
+      Define_Switch (CL_Config, Path'Access, "-p:",
                      Help => "[To be implemented] Path to the folder to be searched");
-      Define_Switch (Config, Recursion_Enabled'Access, "-r",
+      Define_Switch (CL_Config, Recursion_Enabled'Access, "-r",
                      Help => "[To be implemented] Enable recursive search in all subfolders");
-      Define_Switch (Config, Whole_Path_Enabled'Access, "-w",
+      Define_Switch (CL_Config, Whole_Path_Enabled'Access, "-w",
                      Help => "[To be implemented] Show the whole path name");
-      Define_Switch (Config, GUI_Mode_Enabled'Access, "-g",
+      Define_Switch (CL_Config, GUI_Mode_Enabled'Access, "-g",
                      Help => "[To be implemented] Enter GUI mode");
-      Define_Switch (Config, Tiff_Enabled'Access, "-t",
+      Define_Switch (CL_Config, Tiff_Enabled'Access, "-t",
                      Help => "[To be implemented] Add .tiff-files to the search");
-      Define_Switch (Config, Excel_Output_Enabled'Access, "-e",
+      Define_Switch (CL_Config, Excel_Output_Enabled'Access, "-e",
                      Help => "[To be implemented] Enable Excel output");
    end DefineInputParameters;
 
@@ -56,10 +60,12 @@ begin
 
    DefineInputParameters;
 
-   Getopt(Config);
+   Getopt(CL_Config);
+   -- Create config from input parameters
+   My_Config := Create_Config(Date.all, Filename.all);
 
    --for now returns all .jpg and .jpeg files in the execution directory
-   Scan_By_Date(D        => Test_Date,
+   Scan_By_Date(Config => My_Config,
                 Pic_List => Pics,
                 Number_Of_Pics => Pic_Amount);
 

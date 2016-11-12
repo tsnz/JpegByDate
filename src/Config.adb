@@ -21,24 +21,31 @@ package body Config is
       Date_Invalid : exception;
       My_Config: PROGRAM_CONFIG;
       Reg_Exp_Str : String := "[0-9?][0-9?][0-9?][0-9?]-[0-9?][0-9?]-[0-9?][0-9?]";
+      My_Reg_Name : Unbounded_String;
       My_Reg_Exp : Regexp := Compile(Reg_Exp_Str, True, False);
    begin
-      if not (Match(Date, My_Reg_Exp)) then
-         raise Date_Invalid with "Invalid Date";
+      if (Date = "") then
+         My_Config.Date := "????-??-??";
+      else
+         if not (Match(Date, My_Reg_Exp)) then
+            raise Date_Invalid with "Invalid Date";
+         end if;
+         My_Config.Date := Date;
       end if;
-      My_Config.Date := Date;
-      My_Config.Name := To_Unbounded_String(Name);
+      if (Name = "" or Name = "b__jpegbydate.adb") then -- if -f *
+         My_Config.name := To_Unbounded_String(".*");
+      else
+         My_Reg_Name := String_Replace_Character(Name, '.', "\.");
+         My_Reg_Name := String_Replace_Character(To_String(My_Reg_Name), '*', ".*");
+         My_Config.Name := My_Reg_Name;
+      end if;
       return My_Config;
    end Create_Config;
 
-   function Name_Matching(My_Config : PROGRAM_CONFIG; Name : String) return Boolean is
+   function Name_Matching(Config : PROGRAM_CONFIG; Name : String) return Boolean is
       My_Reg_Exp : Regexp;
-      My_Reg_Name : Unbounded_String;
    begin
-      My_Reg_Name := String_Replace_Character(To_String(My_Config.Name), '.', "\.");
-      My_Reg_Name := String_Replace_Character(To_String(My_Reg_Name), '*', ".*");
-      --Put_Line(To_String(My_Reg_Name));
-      My_Reg_Exp := Compile(To_String(My_Reg_Name), False, False);
+      My_Reg_Exp := Compile(To_String(Config.Name), False, False);
       return Match(Name, My_Reg_Exp);
    end Name_Matching;
 

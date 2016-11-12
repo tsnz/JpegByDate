@@ -8,7 +8,7 @@ with GNAT.RegExp;
 package body Finders is
 
 
-   procedure Scan_By_Date(D : IN String;
+   procedure Scan_By_Date(Config : IN PROGRAM_CONFIG;
                           Pic_List : OUT LIST_OF_PICTURES;
                           Number_Of_Pics : OUT Integer) is
       package SU renames Ada.Strings.Unbounded;
@@ -38,7 +38,6 @@ package body Finders is
       Reg_Exp_Str : String := ".*\.(jpg|jpeg)";
       My_Reg_Exp : RX.Regexp := RX.Compile(Reg_Exp_Str, False, False);
    begin
-      Put_Line(Current_Dir);
       Start_Search(Search_Result, Current_Dir, "", Filter);
 
       while (More_Entries(Search_Result)) loop
@@ -49,9 +48,11 @@ package body Finders is
          --if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
          if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
             --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
-            Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
-            Pic_List(File_Count) := Pic;
-            File_Count := File_Count + 1;
+            if (Name_Matching(Config, SU.To_String(Name_Of_File))) then
+               Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
+               Pic_List(File_Count) := Pic;
+               File_Count := File_Count + 1;
+            end if;
             --File_Info_List(File_Count) := (Name => Name_Of_File);
             --File_Count := File_Count + 1;
             --Pic := (SU.To_String(Name_Of_File), 1, 1, "2016-01-01", "2016-01-01", "TestTestTestTestTest");
