@@ -3,6 +3,7 @@ with Ada.Directories; use Ada.Directories;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded;
 with Ada.Calendar.Formatting;
+with GNAT.RegExp;
 
 package body Finders is
 
@@ -12,6 +13,7 @@ package body Finders is
                           Number_Of_Pics : OUT Integer) is
       package SU renames Ada.Strings.Unbounded;
       package CF renames Ada.Calendar.Formatting;
+      package RX renames GNAT.Regexp;
 
       type File_Info_Type is
          record
@@ -32,15 +34,19 @@ package body Finders is
       Pic_File : File_Type;
       Line : SU.Unbounded_String;
       --Lenght : Natural;
+      Reg_Exp_Str : String := ".*\.(jpg|jpeg)";
+      My_Reg_Exp : RX.Regexp := RX.Compile(Reg_Exp_Str, False, False);
    begin
       Put_Line(Current_Dir);
       Start_Search(Search_Result, Current_Dir, "", Filter);
 
       while (More_Entries(Search_Result)) loop
          Get_Next_Entry(Search_Result, Search_Item);
-         Name_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
+         --Name_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
+         Name_Of_File := SU.To_Unbounded_String(Simple_Name(Search_Item));
 
-         if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
+         --if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
+         if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
             --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
             Pic := Create_Picture(Name_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
             Pic_List(File_Count) := Pic;
