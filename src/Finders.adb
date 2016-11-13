@@ -9,6 +9,7 @@ package body Finders is
 
 
    procedure Scan_By_Date(Config : IN PROGRAM_CONFIG;
+                          Path : IN String;
                           Pic_List : OUT LIST_OF_PICTURES;
                           Number_Of_Pics : OUT Integer) is
       package SU renames Ada.Strings.Unbounded;
@@ -38,7 +39,11 @@ package body Finders is
       Reg_Exp_Str : String := ".*\.(jpg|jpeg)";
       My_Reg_Exp : RX.Regexp := RX.Compile(Reg_Exp_Str, False, False);
    begin
-      Start_Search(Search_Result, Current_Dir, "", Filter);
+      if (Path = "") then
+         Start_Search(Search_Result, Current_Dir, "", Filter);
+      else
+         Start_Search(Search_Result, Path, "", Filter);
+      end if;
 
       while (More_Entries(Search_Result)) loop
          Get_Next_Entry(Search_Result, Search_Item);
@@ -63,14 +68,10 @@ package body Finders is
             -- find Hex-Code 9003 to get the date when the picture was taken
             --Close(File => Pic_File);
          end if;
-
       end loop;
 
       Number_Of_Pics := File_Count;
-
       End_Search(Search => Search_Result);
-
-
    end Scan_By_Date;
 
 end Finders;

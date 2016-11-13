@@ -6,6 +6,7 @@ with Pictures; use Pictures;
 with Finders; use Finders;
 with Ada.Strings.Unbounded;
 with Config; use Config;
+with Ada.Task_Identification;  use Ada.Task_Identification;
 
 procedure JpegByDate is
 
@@ -13,11 +14,8 @@ procedure JpegByDate is
 
    CL_Config : Command_Line_Configuration;
    Date    : aliased String_Access;
-   Date_Given : aliased Boolean := False; --default-Wert?
    Filename : aliased String_Access;
-   Filename_Given : aliased Boolean := False;
    Path : aliased String_Access;
-   Path_Given : aliased Boolean := False;
    Recursion_Enabled : aliased Boolean := False;
    Whole_Path_Enabled : aliased Boolean := False;
    GUI_Mode_Enabled : aliased Boolean := False;
@@ -26,23 +24,20 @@ procedure JpegByDate is
 
    -- temporary
    Pics : LIST_OF_PICTURES;
-   Test_Date : String(1..10) := "2016-01-01";
    Pic_Amount : Integer;
-   Pic_Counter : Integer := 1;
    -------------
 
    -- Program Config
    My_Config : PROGRAM_CONFIG;
-
 
    procedure DefineInputParameters is
    begin
       Define_Switch (CL_Config, Date'Access, "-d:",
                      Help => "[To be implemented] Date to be searched for");
       Define_Switch (CL_Config, Filename'Access, "-f:",
-                     Help => "[To be implemented] Filename to be searched for");
+                     Help => "Filter files by name. E.g. '*.jpg'");
       Define_Switch (CL_Config, Path'Access, "-p:",
-                     Help => "[To be implemented] Path to the folder to be searched");
+                     Help => "Search for pictures in given directory");
       Define_Switch (CL_Config, Recursion_Enabled'Access, "-r",
                      Help => "[To be implemented] Enable recursive search in all subfolders");
       Define_Switch (CL_Config, Whole_Path_Enabled'Access, "-w",
@@ -57,24 +52,30 @@ procedure JpegByDate is
 
 
 begin
-
+   -- Get command line parameters
    DefineInputParameters;
-
    Getopt(CL_Config);
    -- Create config from input parameters
    My_Config := Create_Config(Date.all, Filename.all);
 
    --for now returns all .jpg and .jpeg files in the execution directory
-   Scan_By_Date(Config => My_Config,
-                Pic_List => Pics,
-                Number_Of_Pics => Pic_Amount);
+   begin
+      Scan_By_Date(Config => My_Config,
+                   Path => Path.all,
+                   Pic_List => Pics,
+                   Number_Of_Pics => Pic_Amount);
+   exception
+      when Error: Name_Error =>
+         Put_Line("Could not find directory");
+         Abort_Task(Current_Task);
+      when Error: others =>
+         Put_Line("Unexpected error when accessing directory");
+         Abort_Task(Current_Task);
+   end;
 
    for Pic_Counter in 1..Pic_Amount loop
-      --Put_Line(SU.To_String(Pics(Pic_Counter).Filename));
       Put_Line(SU.To_String(Get_Filename(Pics(Pic_Counter))));
    end loop;
-
-
 
 end JpegByDate;
 
