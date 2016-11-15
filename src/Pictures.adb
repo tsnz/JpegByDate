@@ -27,10 +27,10 @@ package body Pictures is
    end Get_Coordinates;
 
 
-   function Get_Filename(Pic : PICTURE) return Unbounded_String is
+   function Get_Picture_Name(Pic : PICTURE) return Unbounded_String is
    begin
       return Pic.Filename;
-   end Get_Filename;
+   end Get_Picture_Name;
 
    function Get_Picture_Path(Pic : PICTURE) return Unbounded_String is
    begin
@@ -57,5 +57,9 @@ package body Pictures is
       return Temp;
    end Create_Picture;
 
+   procedure Print_Picture_To_Console(Pic : PICTURE) is
+   begin
+      Put_Line(To_String(Pic.Filename));
+   end Print_Picture_To_Console;
 
 end Pictures;

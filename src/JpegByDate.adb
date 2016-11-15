@@ -56,12 +56,11 @@ begin
    DefineInputParameters;
    Getopt(CL_Config);
    -- Create config from input parameters
-   My_Config := Create_Config(Date.all, Filename.all);
+   My_Config := Create_Config(Date.all, Filename.all, Path.all);
 
    --for now returns all .jpg and .jpeg files in the execution directory
    begin
-      Scan_By_Date(Config => My_Config,
-                   Path => Path.all,
+      Find_Pictures_Matching_Config(Config => My_Config,
                    Pic_List => Pics,
                    Number_Of_Pics => Pic_Amount);
    exception
@@ -73,9 +72,9 @@ begin
          Abort_Task(Current_Task);
    end;
 
-   for Pic_Counter in 1..Pic_Amount loop
-      Put_Line(SU.To_String(Get_Filename(Pics(Pic_Counter))));
-   end loop;
+   --for Pic_Counter in 1..Pic_Amount loop
+   --   Put_Line(SU.To_String(Get_Picture_Name(Pics(Pic_Counter))));
+   --end loop;
 
 end JpegByDate;
 

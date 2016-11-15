@@ -8,8 +8,7 @@ with GNAT.RegExp;
 package body Finders is
 
 
-   procedure Scan_By_Date(Config : IN PROGRAM_CONFIG;
-                          Path : IN String;
+   procedure Find_Pictures_Matching_Config(Config : IN PROGRAM_CONFIG;
                           Pic_List : OUT LIST_OF_PICTURES;
                           Number_Of_Pics : OUT Integer) is
       package SU renames Ada.Strings.Unbounded;
@@ -39,12 +38,8 @@ package body Finders is
       Reg_Exp_Str : String := ".*\.(jpg|jpeg)";
       My_Reg_Exp : RX.Regexp := RX.Compile(Reg_Exp_Str, False, False);
    begin
-      if (Path = "") then
-         Start_Search(Search_Result, Current_Dir, "", Filter);
-      else
-         Start_Search(Search_Result, Path, "", Filter);
-      end if;
 
+      Start_Search(Search_Result, Get_Path(Config), "", Filter);
       while (More_Entries(Search_Result)) loop
          Get_Next_Entry(Search_Result, Search_Item);
          Path_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
@@ -53,11 +48,16 @@ package body Finders is
          --if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
          if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
             --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
-            if (Name_Matching(Config, SU.To_String(Name_Of_File))) then
-               Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
+
+
+            Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
+
+            if (Picture_Matching_Criteria(Config, Pic)) then
                Pic_List(File_Count) := Pic;
                File_Count := File_Count + 1;
+               Print_Picture_To_Console(Pic);
             end if;
+
             --File_Info_List(File_Count) := (Name => Name_Of_File);
             --File_Count := File_Count + 1;
             --Pic := (SU.To_String(Name_Of_File), 1, 1, "2016-01-01", "2016-01-01", "TestTestTestTestTest");
@@ -72,6 +72,6 @@ package body Finders is
 
       Number_Of_Pics := File_Count;
       End_Search(Search => Search_Result);
-   end Scan_By_Date;
+   end Find_Pictures_Matching_Config;
 
 end Finders;

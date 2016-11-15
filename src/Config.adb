@@ -17,7 +17,7 @@ package body Config is
       return True;
    end Date_Matching;
 
-   function Create_Config(Date: String; Name: String) return PROGRAM_CONFIG is
+   function Create_Config(Date: String; Name: String; Path: String) return PROGRAM_CONFIG is
       Date_Invalid : exception;
       My_Config: PROGRAM_CONFIG;
       Reg_Exp_Str : String := "[0-9?][0-9?][0-9?][0-9?]-[0-9?][0-9?]-[0-9?][0-9?]";
@@ -39,6 +39,11 @@ package body Config is
          My_Reg_Name := String_Replace_Character(To_String(My_Reg_Name), '*', ".*");
          My_Config.Name := My_Reg_Name;
       end if;
+      if (Path = "") then
+         My_Config.Path := To_Unbounded_String(Current_Directory);
+      else
+         My_Config.Path := To_Unbounded_String(Path);
+      end if;
       return My_Config;
    end Create_Config;
 
@@ -49,4 +54,18 @@ package body Config is
       return Match(Name, My_Reg_Exp);
    end Name_Matching;
 
+   function Get_Path(Config: PROGRAM_CONFIG) return String is
+   begin
+      return To_String(Config.Path);
+   end Get_Path;
+
+
+   function Picture_Matching_Criteria(Config : PROGRAM_CONFIG; Pic : PICTURE) return Boolean is
+   begin
+      if(Name_Matching(Config, To_String(Get_Picture_Name(Pic)))) then
+         return True;
+      else
+         return False;
+      end if;
+   end Picture_Matching_Criteria;
 end Config;
