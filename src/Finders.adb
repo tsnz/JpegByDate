@@ -7,7 +7,6 @@ with GNAT.RegExp;
 
 package body Finders is
 
-
    procedure Find_Pictures_Matching_Config(Config : IN PROGRAM_CONFIG;
                           Pic_List : OUT LIST_OF_PICTURES;
                           Number_Of_Pics : OUT Integer) is
@@ -23,8 +22,7 @@ package body Finders is
       File_Info_List : array(1..10000) of File_Info_Type;
       File_Count : Integer := 1;
       Counter : Integer := 1;
-      Pic : PICTURE; --(5, 1, Test_Date, Test_Date, "TestTestTestTestTest");
-      Current_Dir : String := Current_Directory;
+      Pic : PICTURE;
       Search_Result : Search_Type;
       Filter : Filter_Type := (Ordinary_File => True,
                                Special_File => False,
@@ -34,7 +32,6 @@ package body Finders is
       Path_Of_File : SU.Unbounded_String;
       Pic_File : File_Type;
       Line : SU.Unbounded_String;
-      --Lenght : Natural;
       Reg_Exp_Str : String := ".*\.(jpg|jpeg)";
       My_Reg_Exp : RX.Regexp := RX.Compile(Reg_Exp_Str, False, False);
    begin
@@ -45,10 +42,7 @@ package body Finders is
          Path_Of_File := SU.To_Unbounded_String(Full_Name(Search_Item));
          Name_Of_File := SU.To_Unbounded_String(Simple_Name(Search_Item));
 
-         --if ((Extension(SU.To_String(Name_Of_File)) = "jpg") or (Extension(SU.To_String(Name_Of_File)) = "jpeg")) then
          if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
-            --Pic := (Name_Of_File, 5, 1, D, D, "TestTestTestTestTest");
-
 
             Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2012-02-02", "2012-01-01", "112");
 
@@ -57,16 +51,6 @@ package body Finders is
                File_Count := File_Count + 1;
                Print_Picture_To_Console(Pic);
             end if;
-
-            --File_Info_List(File_Count) := (Name => Name_Of_File);
-            --File_Count := File_Count + 1;
-            --Pic := (SU.To_String(Name_Of_File), 1, 1, "2016-01-01", "2016-01-01", "TestTestTestTestTest");
-            --Put_Line(CF.Image(Modification_Time(Search_Item)));
-            --Open(File => Pic_File, Name => SU.To_String(Name_Of_File), Mode => In_File);
-            --Get_Line(File => Pic_File, Item => SU.To_Unbounded_String(Line), Last => Lenght);
-            --Put_Line(SU.To_String(Name_Of_File));
-            -- find Hex-Code 9003 to get the date when the picture was taken
-            --Close(File => Pic_File);
          end if;
       end loop;
 
