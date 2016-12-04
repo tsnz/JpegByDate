@@ -13,18 +13,23 @@ package Config is
 
    type PROGRAM_CONFIG is tagged private;
 
+   function Create_Config(Date : String; Name : String; Path : String; Picture_Width : String; Picture_Height : String) return PROGRAM_CONFIG;
    function Date_Matching(My_Config : PROGRAM_CONFIG; Date : String) return Boolean;
    function Name_Matching(Config: PROGRAM_CONFIG; Name : String) return Boolean;
-   function Create_Config(Date : String; Name : String; Path : String) return PROGRAM_CONFIG;
    function Get_Path(Config : PROGRAM_CONFIG) return String;
    function Picture_Matching_Criteria(Config : PROGRAM_CONFIG; Pic : PICTURE) return Boolean;
+   function Dimensions_Matching(Config : PROGRAM_CONFIG; Picture_Width : Integer; Picture_Height : Integer) return Boolean;
 
 private
    type PROGRAM_CONFIG is tagged
       record
          Date : STRING(1..10);
          Name: Unbounded_String;
-         Path: Unbounded_String;
+         Folder_Path: Unbounded_String;
+         Picture_Width: Integer;
+         Picture_Height: Integer;
+         Picture_Width_Operator: Character;
+         Picture_Height_Operator: Character;
       end record;
 
 end Config;

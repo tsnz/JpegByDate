@@ -15,6 +15,8 @@ procedure JpegByDate is
    CL_Config : Command_Line_Configuration;
    Date    : aliased String_Access;
    Filename : aliased String_Access;
+   Picture_Width : aliased String_Access;
+   Picture_Height : aliased String_Access;
    Path : aliased String_Access;
    Recursion_Enabled : aliased Boolean := False;
    Whole_Path_Enabled : aliased Boolean := False;
@@ -36,6 +38,10 @@ procedure JpegByDate is
                      Help => "[To be implemented] Date to be searched for");
       Define_Switch (CL_Config, Filename'Access, "-f:",
                      Help => "Filter files by name. E.g. '*.jpg'");
+      Define_Switch (CL_Config, Picture_Width'Access, "-w:",
+                     Help => "W");
+      Define_Switch (CL_Config, Picture_Height'Access, "-he:",
+                     Help => "HE");
       Define_Switch (CL_Config, Path'Access, "-p:",
                      Help => "Search for pictures in given directory");
       Define_Switch (CL_Config, Recursion_Enabled'Access, "-r",
@@ -56,7 +62,7 @@ begin
    DefineInputParameters;
    Getopt(CL_Config);
    -- Create config from input parameters
-   My_Config := Create_Config(Date.all, Filename.all, Path.all);
+   My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all);
 
    --for now returns all .jpg and .jpeg files in the execution directory
    begin

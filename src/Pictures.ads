@@ -10,11 +10,12 @@ package Pictures is
    function Get_Exposure_Time(Pic : PICTURE) return Integer;
    function Get_Date_Edited(Pic : PICTURE) return String;
    function Get_Date_Taken(Pic : PICTURE) return String;
-   function Get_Coordinates(Pic : PICTURE) return String;
    function Get_Picture_Name(Pic : PICTURE) return Unbounded_String;
    function Get_Picture_Path(Pic : PICTURE) return Unbounded_String;
+   function Get_Picture_Height(Pic : PICTURE) return Integer;
+   function Get_Picture_Width(Pic : PICTURE) return Integer;
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
-                           Date_Edited : String; Date_Taken : String; Coordinates : String) return PICTURE;
+                           Date_Edited : String; Date_Taken : String; Coordinates : String; Width : Integer; Height : Integer) return PICTURE;
    procedure Print_Picture_To_Console(Pic : PICTURE);
 private
    type PICTURE is tagged
@@ -25,7 +26,8 @@ private
          Exposure_Time : Integer;
          Date_Edited : String(1..10);
          Date_Taken : String(1..10);
-         Coordinates : String(1..20);
+         Picture_Width : Integer;
+         Picture_Height : Integer;
       end record;
 
 end Pictures;

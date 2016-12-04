@@ -21,12 +21,6 @@ package body Pictures is
       return Pic.Date_Taken;
    end Get_Date_Taken;
 
-   function Get_Coordinates(Pic : PICTURE) return String is
-   begin
-      return Pic.Coordinates;
-   end Get_Coordinates;
-
-
    function Get_Picture_Name(Pic : PICTURE) return Unbounded_String is
    begin
       return Pic.Filename;
@@ -37,8 +31,18 @@ package body Pictures is
       return Pic.Path;
    end Get_Picture_Path;
 
+   function Get_Picture_Width(Pic : PICTURE) return Integer is
+   begin
+      return Pic.Picture_Width;
+   end Get_Picture_Width;
+
+   function Get_Picture_Height(Pic : PICTURE) return Integer is
+   begin
+      return Pic.Picture_Height;
+   end Get_Picture_Height;
+
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
-                           Date_Edited : String; Date_Taken : String; Coordinates : String) return PICTURE is
+                           Date_Edited : String; Date_Taken : String; Coordinates : String; Width : Integer; Height : Integer) return PICTURE is
       Temp : PICTURE;
       Date_Invalid : exception;
       Reg_Exp_Str : String := "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]";
@@ -54,6 +58,8 @@ package body Pictures is
       Temp.Aperture := Aparture;
       Temp.Exposure_Time := Exposure_Time;
       Temp.Path := Path;
+      Temp.Picture_Width := Width;
+      Temp.Picture_Height := Height;
       return Temp;
    end Create_Picture;
 
