@@ -59,6 +59,8 @@ package body Pictures is
       if not (Match(Date_Taken, My_Reg_Exp)) then
          raise Date_Invalid with "Invalid Date_Taken";
       end if;
+      Temp.Date_Edited := Date_Edited;
+      Temp.Date_Taken := Date_Taken;
       Temp.Filename := Filename;
       Temp.Aperture := Aparture;
       Temp.Exposure_Time := Exposure_Time;

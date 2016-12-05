@@ -166,6 +166,9 @@ package body Config is
       if not Filesize_Matching(Config, Get_Picture_Filesize(Pic)) then
          return false;
       end if;
+      if not Date_Matching(Config, Get_Date_Taken(Pic)) then
+         return false;
+      end if;
 
       -- return true if all checks were successfull
       return true;
