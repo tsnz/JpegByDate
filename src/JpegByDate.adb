@@ -59,11 +59,11 @@ procedure JpegByDate is
 
 
 begin
-   -- Get command line parameters
-   DefineInputParameters;
-   Getopt(CL_Config);
-   -- Create config from input parameters
    begin
+      -- Get command line parameters
+      DefineInputParameters;
+      Getopt(CL_Config);
+      -- Create config from input parameters
       My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all, Picture_File_Size.all, Whole_Path_Enabled);
    exception
       when Error: Date_Invalid =>
@@ -80,6 +80,11 @@ begin
          Put ("Exception: ");
          Put_Line (Exception_Name (Error));
          Put (Exception_Message (Error));
+         Abort_Task(Current_Task);
+      when Error: INVALID_PARAMETER =>
+         Put_Line (Exception_Name (Error));
+         Put_Line (Exception_Information(Error));
+         Put_Line ("Invalid launch parameter. Parameter might be incomplete");
          Abort_Task(Current_Task);
       when Error: others =>
          Put ("Unexpected exception: ");
