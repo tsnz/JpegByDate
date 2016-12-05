@@ -17,7 +17,7 @@ package Config is
    type PROGRAM_CONFIG is tagged private;
 
    function Create_Config(Date : String; Name : String; Path : String; Picture_Width : String; Picture_Height : String; Filesize : String;
-                          Picture_File_Size : String) return PROGRAM_CONFIG;
+                          Print_Whole_Path : Boolean) return PROGRAM_CONFIG;
    function Create_Date_For_Config(Date : String) return String;
    function Create_Name_For_Config(Name : String) return Unbounded_String;
    procedure Create_Dimension_For_Config(Dimension : IN String; Operator : OUT Character; Result : OUT Integer);
@@ -25,6 +25,7 @@ package Config is
    function Date_Matching(My_Config : PROGRAM_CONFIG; Date : String) return Boolean;
    function Name_Matching(Config: PROGRAM_CONFIG; Name : String) return Boolean;
    function Get_Path(Config : PROGRAM_CONFIG) return String;
+   function Get_Print_Whole_Path(Config : PROGRAM_CONFIG) return Boolean;
    function Picture_Matching_Requirements(Config : PROGRAM_CONFIG; Pic : PICTURE) return Boolean;
    function Dimensions_Matching(Config : PROGRAM_CONFIG; Picture_Width : Integer; Picture_Height : Integer) return Boolean;
    function Filesize_Matching(Config : PROGRAM_CONFIG; Filesize : Long_Integer) return Boolean;
@@ -41,6 +42,7 @@ private
          Picture_Height_Operator: Character;
          Picture_Filesize: Long_Integer;
          Picture_Filesize_Operator: Character;
+         Print_Whole_Path : Boolean;
       end record;
 
 end Config;

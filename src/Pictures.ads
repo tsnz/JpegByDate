@@ -17,7 +17,7 @@ package Pictures is
    function Get_Picture_Filesize(Pic : PICTURE) return Long_Integer;
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
                            Date_Edited : String; Date_Taken : String; Width : Integer; Height : Integer; Filesize : Long_Integer) return PICTURE;
-   procedure Print_Picture_To_Console(Pic : PICTURE);
+   procedure Print_Picture_To_Console(Pic : PICTURE; Print_Whole_Path : Boolean);
 private
    type PICTURE is tagged
       record

@@ -4,10 +4,11 @@ package body Config is
    -- create a config. Requires date template, name template, path to specified folder, picture width with operator, picture height
    -- with operator and filesize with operator and optionally size
    function Create_Config(Date: String; Name: String; Path: String; Picture_Width : String; Picture_Height : String; Filesize : String;
-                          Picture_File_Size : String) return PROGRAM_CONFIG is
+                          Print_Whole_Path : Boolean) return PROGRAM_CONFIG is
       My_Config: PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
    begin
 
+      My_Config.Print_Whole_Path := Print_Whole_Path;
       -- use given date to create pattern accordingly
       My_Config.Date := Create_Date_For_Config(Date);
 
@@ -36,7 +37,7 @@ package body Config is
 
       -- get filesize and operator according to input
       -- if program is called without a sizelimit '>0' is used to match all pictures
-      Create_Filesize_For_Config(Filesize => Picture_File_Size,
+      Create_Filesize_For_Config(Filesize => Filesize,
                                  Operator => My_Config.Picture_Filesize_Operator,
                                  Result   => My_Config.Picture_Filesize);
 
@@ -135,6 +136,12 @@ package body Config is
    begin
       return To_String(Config.Folder_Path);
    end Get_Path;
+
+   -- returns switch to check if whole path has to be printed
+   function Get_Print_Whole_Path(Config : PROGRAM_CONFIG) return Boolean is
+   begin
+      return Config.Print_Whole_Path;
+   end Get_Print_Whole_Path;
 
    -- checks if given date matches given config
    function Date_Matching(My_Config : PROGRAM_CONFIG; Date : String) return Boolean is

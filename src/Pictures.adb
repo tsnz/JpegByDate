@@ -71,9 +71,13 @@ package body Pictures is
       return My_Picture;
    end Create_Picture;
 
-   procedure Print_Picture_To_Console(Pic : PICTURE) is
+   procedure Print_Picture_To_Console(Pic : PICTURE; Print_Whole_Path : Boolean) is
    begin
-      Put_Line(To_String(Pic.Filename));
+      if Print_Whole_Path then
+         Put_Line(To_String(Pic.Path));
+      else
+         Put_Line(To_String(Pic.Filename));
+      end if;
    end Print_Picture_To_Console;
 
 end Pictures;

@@ -50,7 +50,7 @@ procedure JpegByDate is
       Define_Switch (CL_Config, Recursion_Enabled'Access, "-r",
                      Help => "[To be implemented] Enable recursive search in all subfolders");
       Define_Switch (CL_Config, Whole_Path_Enabled'Access, "-w",
-                     Help => "[To be implemented] Show the whole path name");
+                     Help => "Show the whole path name");
       Define_Switch (CL_Config, Tiff_Enabled'Access, "-t",
                      Help => "[To be implemented] Add .tiff-files to the search");
       Define_Switch (CL_Config, Rename_Enabled'Access, "-rn",
@@ -64,7 +64,7 @@ begin
    Getopt(CL_Config);
    -- Create config from input parameters
    begin
-      My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all, Picture_File_Size.all, Picture_File_Size.all);
+      My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all, Picture_File_Size.all, Whole_Path_Enabled);
    exception
       when Error: Date_Invalid =>
          Put ("Exception: ");
@@ -104,10 +104,10 @@ begin
 
 
 
-   if Rename_Enabled then
-      for Pic_Counter in 1..(Pic_Amount - 1) loop
+   --if Rename_Enabled then
+      --for Pic_Counter in 1..(Pic_Amount - 1) loop
          -- rename files here
-      end loop;
-   end if;
+     -- end loop;
+   --end if;
 
 end JpegByDate;
