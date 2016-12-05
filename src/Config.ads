@@ -13,6 +13,10 @@ package Config is
    Date_Invalid : exception; -- raised if date has wrong format
    Image_Size_Invalid : exception; -- raised if width or height has wrong format
    Filesize_Invalid : exception; -- raised if filesize has wrong format
+   Size_Exp_Str : String := "[<=>][0-9]+";
+   Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
+   My_Size_Exp : Regexp := Compile(Size_Exp_Str, False, False);
+   My_Filesize_Exp : Regexp := Compile(Filesize_Exp_Str, False, False);
 
    type PROGRAM_CONFIG is tagged private;
 

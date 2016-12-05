@@ -4,15 +4,8 @@ package body Config is
    -- create a config. Requires date template, name template, path to specified folder, picture width with operator, picture height
    -- with operator and filesize with operator and optionally size
    function Create_Config(Date: String; Name: String; Path: String; Picture_Width : String; Picture_Height : String; Filesize : String;
-                         Picture_File_Size : String) return PROGRAM_CONFIG is
+                          Picture_File_Size : String) return PROGRAM_CONFIG is
       My_Config: PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
-
-      Size_Exp_Str : String := "[<=>][0-9]+";
-      Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
-
-
-      My_Size_Exp : Regexp := Compile(Size_Exp_Str, False, False);
-      My_Filesize_Exp : Regexp := Compile(Filesize_Exp_Str, False, False);
    begin
 
       -- use given date to create pattern accordingly
