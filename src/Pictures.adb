@@ -41,8 +41,13 @@ package body Pictures is
       return Pic.Picture_Height;
    end Get_Picture_Height;
 
+   function Get_Picture_Filesize(Pic : PICTURE) return Long_Integer is
+   begin
+      return Pic.Filesize;
+   end Get_Picture_Filesize;
+
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
-                           Date_Edited : String; Date_Taken : String; Coordinates : String; Width : Integer; Height : Integer) return PICTURE is
+                           Date_Edited : String; Date_Taken : String; Width : Integer; Height : Integer; Filesize : Long_Integer) return PICTURE is
       Temp : PICTURE;
       Date_Invalid : exception;
       Reg_Exp_Str : String := "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]";
@@ -60,6 +65,7 @@ package body Pictures is
       Temp.Path := Path;
       Temp.Picture_Width := Width;
       Temp.Picture_Height := Height;
+      Temp.Filesize := Filesize;
       return Temp;
    end Create_Picture;
 

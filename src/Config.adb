@@ -18,15 +18,18 @@ package body Config is
       return True;
    end Date_Matching;
 
-   function Create_Config(Date: String; Name: String; Path: String; Picture_Width : String; Picture_Height : String) return PROGRAM_CONFIG is
+   function Create_Config(Date: String; Name: String; Path: String; Picture_Width : String; Picture_Height : String; Filesize : String;
+                         Picture_File_Size : String) return PROGRAM_CONFIG is
       Date_Invalid : exception;
       Image_Size_Invalid : exception;
       My_Config: PROGRAM_CONFIG;
       Date_Exp_Str : String := "[0-9?][0-9?][0-9?][0-9?]-[0-9?][0-9?]-[0-9?][0-9?]";
-      Size_Exp_Str : String := "[<=>][0123456789]+";
+      Size_Exp_Str : String := "[<=>][0-9]+";
+      Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
       My_Reg_Name : Unbounded_String;
       My_Date_Exp : Regexp := Compile(Date_Exp_Str, True, False);
       My_Size_Exp : Regexp := Compile(Size_Exp_Str, False, False);
+      My_Filesize_Exp : Regexp := Compile(Filesize_Exp_Str, False, False);
    begin
       if (Date = "") then
          My_Config.Date := "????-??-??";
@@ -72,6 +75,27 @@ package body Config is
          end if;
          My_Config.Picture_Width_Operator := Picture_Width(Picture_Width'First);
          My_Config.Picture_Width := Integer'Value(Picture_Width((Picture_Width'First + 1)..Picture_Width'Last));
+      end if;
+
+      -- Get FILESIZE
+      if Picture_File_Size = "" then
+         My_Config.Picture_File_Size := 0;
+         My_Config.Picture_File_Size_Operator := '>';
+      else
+         -- check if file size has required format
+         if not (Match(Picture_File_Size, My_Filesize_Exp)) then
+            raise Image_Size_Invalid with "Invalid Size";
+         end if;
+         -- store operator for comparison
+         My_Config.Picture_File_Size_Operator := Picture_File_Size(Picture_File_Size'First);
+         case Picture_File_Size(Picture_File_Size'Last) is
+            when 'M' | 'm' =>
+               My_Config.Picture_File_Size := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..(Picture_File_Size'Last - 1))) * 1024 * 1024;
+            when 'K' | 'k' =>
+               My_Config.Picture_File_Size := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..(Picture_File_Size'Last - 1))) * 1024;
+            when others =>
+               My_Config.Picture_File_Size := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..Picture_File_Size'Last));
+         end case;
       end if;
 
       return My_Config;
@@ -139,7 +163,31 @@ package body Config is
          return false;
       end if;
 
+      if not Filesize_Matching(Config, Get_Picture_Filesize(Pic)) then
+         return false;
+      end if;
+
       -- return true if all checks were successfull
       return true;
    end Picture_Matching_Criteria;
+
+   function Filesize_Matching(Config : PROGRAM_CONFIG; Filesize : Long_Integer) return Boolean is
+   begin
+      case Config.Picture_File_Size_Operator is
+         when '>' =>
+            if Filesize <= Config.Picture_File_Size then
+               return false;
+            end if;
+         when '=' =>
+            if not (Config.Picture_File_Size = Filesize) then
+               return false;
+            end if;
+         when '<' =>
+            if Filesize >= Config.Picture_File_Size then
+               return false;
+            end if;
+         when others => null;
+      end case;
+      return true;
+   end Filesize_Matching;
 end Config;

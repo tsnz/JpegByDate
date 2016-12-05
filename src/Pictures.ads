@@ -14,8 +14,9 @@ package Pictures is
    function Get_Picture_Path(Pic : PICTURE) return Unbounded_String;
    function Get_Picture_Height(Pic : PICTURE) return Integer;
    function Get_Picture_Width(Pic : PICTURE) return Integer;
+   function Get_Picture_Filesize(Pic : PICTURE) return Long_Integer;
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
-                           Date_Edited : String; Date_Taken : String; Coordinates : String; Width : Integer; Height : Integer) return PICTURE;
+                           Date_Edited : String; Date_Taken : String; Width : Integer; Height : Integer; Filesize : Long_Integer) return PICTURE;
    procedure Print_Picture_To_Console(Pic : PICTURE);
 private
    type PICTURE is tagged
@@ -28,6 +29,7 @@ private
          Date_Taken : String(1..10);
          Picture_Width : Integer;
          Picture_Height : Integer;
+         Filesize : Long_Integer;
       end record;
 
 end Pictures;
