@@ -7,9 +7,6 @@ package body Config is
                          Picture_File_Size : String) return PROGRAM_CONFIG is
       My_Config: PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
 
-      Image_Size_Invalid : exception; -- raised if width or height has wrong format
-      Filesize_Invalid : exception; -- raised if filesize has wrong format
-
       Size_Exp_Str : String := "[<=>][0-9]+";
       Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
 
@@ -39,7 +36,7 @@ package body Config is
       else
          -- check if height has required format
          if not (Match(Picture_Height, My_Size_Exp)) then
-            raise Image_Size_Invalid with "Invalid Dimension: Height";
+            raise Image_Size_Invalid with "Invalid height in input parameters";
          end if;
          -- use first character as operator
          My_Config.Picture_Height_Operator := Picture_Height(Picture_Height'First);
@@ -54,7 +51,7 @@ package body Config is
       else
          -- check if width has required format
          if not (Match(Picture_Width, My_Size_Exp)) then
-            raise Image_Size_Invalid with "Invalid Dimension: Width";
+            raise Image_Size_Invalid with "Invalid width in input parameters";
          end if;
          -- use first character as operator
          My_Config.Picture_Width_Operator := Picture_Width(Picture_Width'First);
@@ -69,7 +66,7 @@ package body Config is
       else
          -- check if filesize has required format
          if not (Match(Picture_File_Size, My_Filesize_Exp)) then
-            raise Image_Size_Invalid with "Invalid Size";
+            raise Filesize_Invalid with "Invalid filesize in input parameters";
          end if;
          -- store operator
          My_Config.Picture_Filesize_Operator := Picture_File_Size(Picture_File_Size'First);
@@ -90,7 +87,6 @@ package body Config is
 
    -- create date pattern according to given date and return result
    function Create_Date_For_Config(Date : String) return String is
-      Date_Invalid : exception; -- raised if date has wrong format
       Date_Exp_Str : String := "[0-9?][0-9?][0-9?][0-9?]-[0-9?][0-9?]-[0-9?][0-9?]";
       My_Date_Exp : Regexp := Compile(Date_Exp_Str, True, False);
    begin
@@ -100,7 +96,7 @@ package body Config is
       else
          -- check if date has correct format
          if not (Match(Date, My_Date_Exp)) then
-            raise Date_Invalid with "Invalid Dateformat";
+            raise Date_Invalid with "Invalid date in input parameters";
          end if;
          return Date;
       end if;

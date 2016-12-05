@@ -10,6 +10,9 @@ With Pictures; use Pictures;
 with Ada.Text_IO; use Ada.Text_IO;
 -- Interface of Config
 package Config is
+   Date_Invalid : exception; -- raised if date has wrong format
+   Image_Size_Invalid : exception; -- raised if width or height has wrong format
+   Filesize_Invalid : exception; -- raised if filesize has wrong format
 
    type PROGRAM_CONFIG is tagged private;
 

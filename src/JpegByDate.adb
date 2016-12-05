@@ -7,6 +7,7 @@ with Finders; use Finders;
 with Ada.Strings.Unbounded;
 with Config; use Config;
 with Ada.Task_Identification;  use Ada.Task_Identification;
+with Ada.Exceptions;  use Ada.Exceptions;
 
 procedure JpegByDate is
 
@@ -59,7 +60,29 @@ begin
    DefineInputParameters;
    Getopt(CL_Config);
    -- Create config from input parameters
-   My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all, Picture_File_Size.all, Picture_File_Size.all);
+   begin
+      My_Config := Create_Config(Date.all, Filename.all, Path.all, Picture_Width.all, Picture_Height.all, Picture_File_Size.all, Picture_File_Size.all);
+   exception
+      when Error: Date_Invalid =>
+         Put ("Exception: ");
+         Put_Line (Exception_Name (Error));
+         Put (Exception_Message (Error));
+         Abort_Task(Current_Task);
+      when Error: Image_Size_Invalid =>
+         Put ("Exception: ");
+         Put_Line (Exception_Name (Error));
+         Put (Exception_Message (Error));
+         Abort_Task(Current_Task);
+      when Error: Filesize_Invalid =>
+         Put ("Exception: ");
+         Put_Line (Exception_Name (Error));
+         Put (Exception_Message (Error));
+         Abort_Task(Current_Task);
+      when Error: others =>
+         Put ("Unexpected exception: ");
+         Put_Line (Exception_Information(Error));
+         Abort_Task(Current_Task);
+   end;
 
    --for now returns all .jpg and .jpeg files in the execution directory
    begin
@@ -71,7 +94,8 @@ begin
          Put_Line("Could not find directory");
          Abort_Task(Current_Task);
       when Error: others =>
-         Put_Line("Unexpected error when accessing directory");
+         Put ("Unexpected exception: ");
+         Put_Line (Exception_Information(Error));
          Abort_Task(Current_Task);
    end;
 
@@ -80,52 +104,3 @@ begin
    --end loop;
 
 end JpegByDate;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---with Ada.Text_IO;
---with Ada.Command_Line;
-
---procedure main is
-   --package IO renames Ada.Text_IO;
-   --package CL renames Ada.Command_Line;
-   --procedure calc(A,B: IN Integer; N: OUT INTEGER) is separate;
-
-   --begin
-   --declare
-     -- type date is
-       --  record
-         --   day : integer range 1 .. 31;
-           -- month : integer range 1 .. 12;
-            --year : integer Range 0 .. 9999;
-         --end record;
-
-     -- arg : String := "Test";
-      --test : Integer;
-   --begin
-
-     -- for i in 1 .. CL.Argument_Count+3 loop
-      --   calc(1,2,test);
-      --end loop;
-
-
-      --IO.Put_Line("Argument Count:" & CL.Argument_Count'Img);
-   --end;
---end main;
