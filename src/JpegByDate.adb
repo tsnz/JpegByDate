@@ -21,9 +21,7 @@ procedure JpegByDate is
    Path : aliased String_Access;
    Recursion_Enabled : aliased Boolean := False;
    Whole_Path_Enabled : aliased Boolean := False;
-   GUI_Mode_Enabled : aliased Boolean := False;
    Tiff_Enabled : aliased Boolean := False;
-   Excel_Output_Enabled : aliased Boolean := False;
 
    -- temporary
    Pics : LIST_OF_PICTURES;
@@ -36,27 +34,23 @@ procedure JpegByDate is
    procedure DefineInputParameters is
    begin
       Define_Switch (CL_Config, Date'Access, "-d:",
-                     Help => "[To be implemented] Date to be searched for");
+                     Help => "Filter files by date. Format has to be 'yyyy-mm-dd'. Wildcards may be used. E.g. '201?-02-??'");
       Define_Switch (CL_Config, Filename'Access, "-f:",
                      Help => "Filter files by name. E.g. '*.jpg'");
       Define_Switch (CL_Config, Picture_Width'Access, "-sw:",
-                     Help => "Limit search by file width. Comperator has to be given. E.g.: '<200', '=1020'");
+                     Help => "Limit search by file width. Comperator has to be given. E.g. '<200', '=1020'");
       Define_Switch (CL_Config, Picture_Height'Access, "-sh:",
-                     Help => "Limit search by file height. Comperator has to be given. E.g.: '<200', '=1020'");
+                     Help => "Limit search by file height. Comperator has to be given. E.g. '<200', '=1020'");
       Define_Switch (CL_Config, Path'Access, "-p:",
                      Help => "Search for pictures in given directory");
       Define_Switch (CL_Config, Picture_File_Size'Access, "-s:",
-                     Help => "Limit search by file size. Comperator has to be given. M and K may be used to specify size. E.g.: '<200k', '=1020'");
+                     Help => "Limit search by file size. Comperator has to be given. M and K may be used to specify size. E.g. '<200k', '=1020'");
       Define_Switch (CL_Config, Recursion_Enabled'Access, "-r",
                      Help => "[To be implemented] Enable recursive search in all subfolders");
       Define_Switch (CL_Config, Whole_Path_Enabled'Access, "-w",
                      Help => "[To be implemented] Show the whole path name");
-      Define_Switch (CL_Config, GUI_Mode_Enabled'Access, "-g",
-                     Help => "[To be implemented] Enter GUI mode");
       Define_Switch (CL_Config, Tiff_Enabled'Access, "-t",
                      Help => "[To be implemented] Add .tiff-files to the search");
-      Define_Switch (CL_Config, Excel_Output_Enabled'Access, "-e",
-                     Help => "[To be implemented] Enable Excel output");
    end DefineInputParameters;
 
 

@@ -48,7 +48,7 @@ package body Pictures is
 
    function Create_Picture(Filename : Unbounded_String; Path : Unbounded_String; Aparture : Integer; Exposure_Time : Integer;
                            Date_Edited : String; Date_Taken : String; Width : Integer; Height : Integer; Filesize : Long_Integer) return PICTURE is
-      Temp : PICTURE;
+      My_Picture : PICTURE;
       Date_Invalid : exception;
       Reg_Exp_Str : String := "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]";
       My_Reg_Exp : Regexp := Compile(Reg_Exp_Str, True, False);
@@ -59,16 +59,16 @@ package body Pictures is
       if not (Match(Date_Taken, My_Reg_Exp)) then
          raise Date_Invalid with "Invalid Date_Taken";
       end if;
-      Temp.Date_Edited := Date_Edited;
-      Temp.Date_Taken := Date_Taken;
-      Temp.Filename := Filename;
-      Temp.Aperture := Aparture;
-      Temp.Exposure_Time := Exposure_Time;
-      Temp.Path := Path;
-      Temp.Picture_Width := Width;
-      Temp.Picture_Height := Height;
-      Temp.Filesize := Filesize;
-      return Temp;
+      My_Picture.Date_Edited := Date_Edited;
+      My_Picture.Date_Taken := Date_Taken;
+      My_Picture.Filename := Filename;
+      My_Picture.Aperture := Aparture;
+      My_Picture.Exposure_Time := Exposure_Time;
+      My_Picture.Path := Path;
+      My_Picture.Picture_Width := Width;
+      My_Picture.Picture_Height := Height;
+      My_Picture.Filesize := Filesize;
+      return My_Picture;
    end Create_Picture;
 
    procedure Print_Picture_To_Console(Pic : PICTURE) is
