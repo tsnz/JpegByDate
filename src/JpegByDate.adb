@@ -21,6 +21,7 @@ procedure JpegByDate is
    Picture_File_Size : aliased String_Access;
    Path : aliased String_Access;
    Recursion_Enabled : aliased Boolean := False;
+   Rename_Enabled : aliased Boolean := False;
    Whole_Path_Enabled : aliased Boolean := False;
    Tiff_Enabled : aliased Boolean := False;
 
@@ -52,6 +53,8 @@ procedure JpegByDate is
                      Help => "[To be implemented] Show the whole path name");
       Define_Switch (CL_Config, Tiff_Enabled'Access, "-t",
                      Help => "[To be implemented] Add .tiff-files to the search");
+      Define_Switch (CL_Config, Rename_Enabled'Access, "-rn",
+                     Help => "[To be implemented] Rename found images. The date the image was taken is added to the filename");
    end DefineInputParameters;
 
 
@@ -99,8 +102,12 @@ begin
          Abort_Task(Current_Task);
    end;
 
-   --for Pic_Counter in 1..Pic_Amount loop
-   --   Put_Line(SU.To_String(Get_Picture_Name(Pics(Pic_Counter))));
-   --end loop;
+
+
+   if Rename_Enabled then
+      for Pic_Counter in 1..(Pic_Amount - 1) loop
+         -- rename files here
+      end loop;
+   end if;
 
 end JpegByDate;
