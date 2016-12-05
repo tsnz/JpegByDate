@@ -44,11 +44,11 @@ package body Finders is
 
          if (RX.Match(SU.To_String(Name_Of_File), My_Reg_Exp)) then
 
-            Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2010-01-01", "2011-01-01", 300, 200, 200);
+            Pic := Create_Picture(Name_Of_File,Path_Of_File, 1, 1, "2010-01-01", "2011-01-01", 300, 200, 2000);
             if (Picture_Matching_Requirements(Config, Pic)) then
                Pic_List(File_Count) := Pic;
                File_Count := File_Count + 1;
-               Print_Picture_To_Console(Pic);
+               Print_Picture_To_Console(Pic, Get_Print_Whole_Path(Config));
             end if;
          end if;
       end loop;
