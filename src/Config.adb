@@ -22,57 +22,23 @@ package body Config is
          My_Config.Folder_Path := To_Unbounded_String(Path);
       end if;
 
+      -- get height and operator accordig to input
       -- if program is called without height limits '>0' is used to match every picture
-      if (Picture_Height = "") then
-         My_Config.Picture_Height := 0;
-         My_Config.Picture_Height_Operator := '>';
-      else
-         -- check if height has required format
-         if not (Match(Picture_Height, My_Size_Exp)) then
-            raise Image_Size_Invalid with "Invalid height in input parameters";
-         end if;
-         -- use first character as operator
-         My_Config.Picture_Height_Operator := Picture_Height(Picture_Height'First);
-         -- use all remaining characters as size
-         My_Config.Picture_Height := Integer'Value(Picture_Height((Picture_Height'First + 1)..Picture_Height'Last));
-      end if;
+      Create_Dimension_For_Config(Dimension => Picture_Height,
+                                  Operator => My_Config.Picture_Height_Operator,
+                                  Result =>  My_Config.Picture_Height);
 
+      -- get width and operator accordig to input
       -- if program is called without width limits '>0' is used to match every picture
-      if (Picture_Width = "") then
-         My_Config.Picture_Width := 0;
-         My_Config.Picture_Width_Operator := '>';
-      else
-         -- check if width has required format
-         if not (Match(Picture_Width, My_Size_Exp)) then
-            raise Image_Size_Invalid with "Invalid width in input parameters";
-         end if;
-         -- use first character as operator
-         My_Config.Picture_Width_Operator := Picture_Width(Picture_Width'First);
-         -- use all remaining characters as size
-         My_Config.Picture_Width := Integer'Value(Picture_Width((Picture_Width'First + 1)..Picture_Width'Last));
-      end if;
+      Create_Dimension_For_Config(Dimension => Picture_Width,
+                                  Operator => My_Config.Picture_Width_Operator,
+                                  Result =>  My_Config.Picture_Width);
 
+      -- get filesize and operator according to input
       -- if program is called without a sizelimit '>0' is used to match all pictures
-      if Picture_File_Size = "" then
-         My_Config.Picture_Filesize := 0;
-         My_Config.Picture_Filesize_Operator := '>';
-      else
-         -- check if filesize has required format
-         if not (Match(Picture_File_Size, My_Filesize_Exp)) then
-            raise Filesize_Invalid with "Invalid filesize in input parameters";
-         end if;
-         -- store operator
-         My_Config.Picture_Filesize_Operator := Picture_File_Size(Picture_File_Size'First);
-         -- process remaining characters depending on whether a unit is given
-         case Picture_File_Size(Picture_File_Size'Last) is
-            when 'M' | 'm' =>
-               My_Config.Picture_Filesize := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..(Picture_File_Size'Last - 1))) * 1024 * 1024;
-            when 'K' | 'k' =>
-               My_Config.Picture_Filesize := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..(Picture_File_Size'Last - 1))) * 1024;
-            when others =>
-               My_Config.Picture_Filesize := Long_Integer'Value(Picture_File_Size((Picture_File_Size'First + 1)..Picture_File_Size'Last));
-         end case;
-      end if;
+      Create_Filesize_For_Config(Filesize => Picture_File_Size,
+                                 Operator => My_Config.Picture_Filesize_Operator,
+                                 Result   => My_Config.Picture_Filesize);
 
       -- return created config
       return My_Config;
@@ -113,6 +79,56 @@ package body Config is
          return My_Reg_Name;
       end if;
    end Create_Name_For_Config;
+
+   -- return width or height and operator after extracting it from the given string
+   procedure Create_Dimension_For_Config(Dimension : IN String; Operator : OUT Character; Result : OUT Integer) is
+      Size_Exp_Str : String := "[<=>][0-9]+";
+      My_Size_Exp : Regexp := Compile(Size_Exp_Str, False, False);
+   begin
+      -- if dimension is empty '>0' is used to match all pictures
+      if (Dimension = "") then
+         Result := 0;
+         Operator := '>';
+      else
+         -- check if height has required format
+         if not (Match(Dimension, My_Size_Exp)) then
+            raise Image_Size_Invalid with "Invalid height in input parameters";
+         end if;
+         -- use first character as operator
+         Operator := Dimension(Dimension'First);
+         -- use all remaining characters as size
+         Result := Integer'Value(Dimension((Dimension'First + 1)..Dimension'Last));
+      end if;
+   end Create_Dimension_For_Config;
+
+   -- return filesize and operator after extracting it from the given string
+   procedure Create_Filesize_For_Config(Filesize : IN String; Operator : OUT Character; Result : OUT Long_Integer)is
+      Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
+      My_Filesize_Exp : Regexp := Compile(Filesize_Exp_Str, False, False);
+   begin
+      -- if program is called without a sizelimit '>0' is used to match all pictures
+      if Filesize = "" then
+         Result := 0;
+         Operator := '>';
+      else
+         -- check if filesize has required format
+         if not (Match(Filesize, My_Filesize_Exp)) then
+            raise Filesize_Invalid with "Invalid filesize in input parameters";
+         end if;
+         -- store operator
+         Operator := Filesize(Filesize'First);
+         -- process remaining characters depending on whether a unit is given
+         case Filesize(Filesize'Last) is
+            when 'M' | 'm' =>
+               Result := Long_Integer'Value(Filesize((Filesize'First + 1)..(Filesize'Last - 1))) * 1024 * 1024;
+            when 'K' | 'k' =>
+               Result := Long_Integer'Value(Filesize((Filesize'First + 1)..(Filesize'Last - 1))) * 1024;
+            when others =>
+               Result := Long_Integer'Value(Filesize((Filesize'First + 1)..Filesize'Last));
+         end case;
+      end if;
+
+   end Create_Filesize_For_Config;
 
    -- returns path stored in config
    function Get_Path(Config: PROGRAM_CONFIG) return String is

@@ -13,10 +13,6 @@ package Config is
    Date_Invalid : exception; -- raised if date has wrong format
    Image_Size_Invalid : exception; -- raised if width or height has wrong format
    Filesize_Invalid : exception; -- raised if filesize has wrong format
-   Size_Exp_Str : String := "[<=>][0-9]+";
-   Filesize_Exp_Str : String := "[<=>][0-9]+[km]?";
-   My_Size_Exp : Regexp := Compile(Size_Exp_Str, False, False);
-   My_Filesize_Exp : Regexp := Compile(Filesize_Exp_Str, False, False);
 
    type PROGRAM_CONFIG is tagged private;
 
@@ -24,6 +20,8 @@ package Config is
                           Picture_File_Size : String) return PROGRAM_CONFIG;
    function Create_Date_For_Config(Date : String) return String;
    function Create_Name_For_Config(Name : String) return Unbounded_String;
+   procedure Create_Dimension_For_Config(Dimension : IN String; Operator : OUT Character; Result : OUT Integer);
+   procedure Create_Filesize_For_Config(Filesize : IN String; Operator : OUT Character; Result : OUT Long_Integer);
    function Date_Matching(My_Config : PROGRAM_CONFIG; Date : String) return Boolean;
    function Name_Matching(Config: PROGRAM_CONFIG; Name : String) return Boolean;
    function Get_Path(Config : PROGRAM_CONFIG) return String;
