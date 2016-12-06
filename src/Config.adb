@@ -218,7 +218,7 @@ package body Config is
    function Picture_Matching_Requirements(Config : PROGRAM_CONFIG; Pic : PICTURE) return Boolean is
    begin
       -- check if name matches config
-      if not Name_Matching(Config, To_String(Get_Picture_Name(Pic))) then
+      if not Name_Matching(Config, To_String(Get_Picture_Filename(Pic))) then
          return False;
       end if;
 

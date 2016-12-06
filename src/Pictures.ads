@@ -1,7 +1,7 @@
 -- Interface of Pictures
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with GNAT.RegExp; use GNAT.RegExp;
-with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
+with GNAT.RegExp;            use GNAT.RegExp;
+with Ada.Text_IO;            use Ada.Text_IO;
 package Pictures is
 
    type PICTURE is tagged private;
@@ -10,7 +10,7 @@ package Pictures is
    function Get_Exposure_Time(Pic : PICTURE) return Integer;
    function Get_Date_Edited(Pic : PICTURE) return String;
    function Get_Date_Taken(Pic : PICTURE) return String;
-   function Get_Picture_Name(Pic : PICTURE) return Unbounded_String;
+   function Get_Picture_Filename(Pic : PICTURE) return Unbounded_String;
    function Get_Picture_Path(Pic : PICTURE) return Unbounded_String;
    function Get_Picture_Height(Pic : PICTURE) return Integer;
    function Get_Picture_Width(Pic : PICTURE) return Integer;
@@ -21,15 +21,15 @@ package Pictures is
 private
    type PICTURE is tagged
       record
-         Filename : Unbounded_String;
-         Path : Unbounded_String;
-         Aperture : Integer;
-         Exposure_Time : Integer;
-         Date_Edited : String(1..10);
-         Date_Taken : String(1..10);
-         Picture_Width : Integer;
-         Picture_Height : Integer;
-         Filesize : Long_Integer;
+         Filename :         Unbounded_String;
+         Path :             Unbounded_String;
+         Aperture :         Integer;
+         Exposure_Time :    Integer;
+         Date_Edited :      String(1..10);
+         Date_Taken :       String(1..10);
+         Picture_Width :    Integer;
+         Picture_Height :   Integer;
+         Filesize :         Long_Integer;
       end record;
 
 end Pictures;
