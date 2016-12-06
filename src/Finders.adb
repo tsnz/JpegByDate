@@ -50,7 +50,7 @@ package body Finders is
       Recursive_Filter : Filter_Type :=
         (Ordinary_File => True, Special_File => False, Directory => True);
       Search_Item : Directory_Entry_Type;
-      Reg_Exp_Str : String    := ".*\.(jpg|jpeg)";
+      Reg_Exp_Str : String    := ".*\.(jpg|jpeg|tif|tiff)";
       My_Reg_Exp  : RX.Regexp := RX.Compile (Reg_Exp_Str, False, False);
 
       -- Single file iteration
