@@ -3,9 +3,9 @@ package body Config is
 
    -- create a config. Requires date template, name template, path to specified folder, picture width with operator, picture height
    -- with operator and filesize with operator and optionally size
-   function Create_Config(Date: String; Name: String; Path: String; Picture_Width : String; Picture_Height : String; Filesize : String;
+   function Create_Config (Date : String; Name : String; Path : String; Picture_Width : String; Picture_Height : String; Filesize : String;
                           Print_Whole_Path : Boolean) return PROGRAM_CONFIG is
-      My_Config: PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
+      My_Config : PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
    begin
 
       My_Config.Print_Whole_Path := Print_Whole_Path;
@@ -48,7 +48,7 @@ package body Config is
    -- create date pattern according to given date and return result
    function Create_Date_For_Config(Date : String) return String is
       Date_Exp_Str : String := "[0-9?][0-9?][0-9?][0-9?]-[0-9?][0-9?]-[0-9?][0-9?]";
-      My_Date_Exp : Regexp := Compile(Date_Exp_Str, True, False);
+      My_Date_Exp :  Regexp := Compile(Date_Exp_Str, True, False);
    begin
       -- if no date is given when executing the program every date is accepted
       if (Date = "") then
@@ -60,7 +60,6 @@ package body Config is
          end if;
          return Date;
       end if;
-
    end Create_Date_For_Config;
 
    -- create name pattern according to given name and return result
@@ -128,11 +127,10 @@ package body Config is
                Result := Long_Integer'Value(Filesize((Filesize'First + 1)..Filesize'Last));
          end case;
       end if;
-
    end Create_Filesize_For_Config;
 
    -- returns path stored in config
-   function Get_Path(Config: PROGRAM_CONFIG) return String is
+   function Get_Path(Config : PROGRAM_CONFIG) return String is
    begin
       return To_String(Config.Folder_Path);
    end Get_Path;
@@ -176,9 +174,10 @@ package body Config is
    end Name_Matching;
 
    -- checks if given dimensions match config
-   function Dimensions_Matching(Config: PROGRAM_CONFIG; Picture_Width : Integer; Picture_Height : Integer) return Boolean is
+   function Dimensions_Matching(Config : PROGRAM_CONFIG; Picture_Width : Integer; Picture_Height : Integer) return Boolean is
    begin
       -- check if width matches limit
+      -- comperator is chosen on the stored operator in the config
       case Config.Picture_Width_Operator is
          when '>' =>
             if Picture_Width <= Config.Picture_Width then
@@ -192,10 +191,10 @@ package body Config is
             if Picture_Width >= Config.Picture_Width then
                return false;
             end if;
-         when others =>
-            null;
+         when others => null; -- impossible since strig is checked with regular expression
       end case;
       -- check if height matches limit
+      -- comperator is chosen on the stored operator in the config
       case Config.Picture_Height_Operator is
          when '>' =>
             if Picture_Height <= Config.Picture_Height then
@@ -209,10 +208,9 @@ package body Config is
             if Picture_Height >= Config.Picture_Height then
                return false;
             end if;
-         when others =>
-            null;
+         when others => null; -- impossible since strig is checked with regular expression
       end case;
-
+      -- return true if tests were successful
       return True;
    end Dimensions_Matching;
 
