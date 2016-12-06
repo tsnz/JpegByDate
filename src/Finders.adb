@@ -84,7 +84,6 @@ package body Finders is
                and then Simple_Name (Search_Item) /= "..")
             then
 
-               Put_Line (Full_Name (Search_Item));
                Search_Given_Dir
                  (Path           => Full_Name (Search_Item),
                   Config         => Config,
