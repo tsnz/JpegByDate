@@ -102,7 +102,8 @@ begin
            Picture_Width.all,
            Picture_Height.all,
            Picture_File_Size.all,
-           Whole_Path_Enabled);
+           Whole_Path_Enabled,
+           Recursion_Enabled);
    exception
       when Error : Date_Invalid =>
          Put ("Exception: ");

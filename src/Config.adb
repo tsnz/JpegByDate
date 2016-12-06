@@ -4,7 +4,7 @@ package body Config is
    -- create a config. Requires date template, name template, path to specified folder, picture width with operator, picture height
    -- with operator and filesize with operator and optionally size
    function Create_Config (Date : String; Name : String; Path : String; Picture_Width : String; Picture_Height : String; Filesize : String;
-                          Print_Whole_Path : Boolean) return PROGRAM_CONFIG is
+                          Print_Whole_Path : Boolean; Search_Is_Recursive : Boolean) return PROGRAM_CONFIG is
       My_Config : PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
    begin
 
@@ -134,6 +134,12 @@ package body Config is
    begin
       return To_String(Config.Folder_Path);
    end Get_Path;
+
+   -- returns true if recursive search is enabled
+   function Get_Search_Is_Recursive (Config : PROGRAM_CONFIG) return Boolean is
+   begin
+      return Config.Search_Is_Recursive;
+   end Get_Search_Is_Recursive;
 
    -- returns switch to check if whole path has to be printed
    function Get_Print_Whole_Path(Config : PROGRAM_CONFIG) return Boolean is
