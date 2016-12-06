@@ -108,4 +108,20 @@ package body Pictures is
       end if;
    end Print_Picture_To_Console;
 
+   -- rename image file and append date to filename
+   procedure Append_Date_To_Filename (Pic : in PICTURE) is
+      Dot_Position :   Integer;
+      New_Name :       Unbounded_String;
+   begin
+      Dot_Position := Index(Pic.Path, ".", Ada.Strings.Backward);
+      -- use everything in front of last .
+      Append(New_Name, To_String(Pic.Path)(1..(Dot_Position - 1)));
+      -- append ' - ' to make filename more legible
+      Append(New_Name, " - ");
+      -- append date and filetype
+      Append(New_Name, Pic.Date_Taken);
+      Append(New_Name, To_String(Pic.Path)(Dot_Position..(To_String(Pic.Path)'Length)));
+      -- rename file
+      Rename(To_String(Pic.Path), To_String(New_Name));
+   end Append_Date_To_Filename;
 end Pictures;

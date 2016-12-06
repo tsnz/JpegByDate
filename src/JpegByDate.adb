@@ -102,7 +102,8 @@ begin
            Picture_Height.all,
            Picture_File_Size.all,
            Whole_Path_Enabled,
-           Recursion_Enabled);
+           Recursion_Enabled,
+           Rename_Enabled);
    exception
       when Error : Date_Invalid =>
          Put ("Exception: ");
@@ -145,5 +146,12 @@ begin
          Put_Line (Exception_Information (Error));
          Abort_Task (Current_Task);
    end;
+
+   -- rename pictures if parameter was passed when executing the program
+   if Get_Append_Date_To_Pictures(My_Config) then
+      for counter in Integer range 1..(Pic_Amount - 1) loop
+         Append_Date_To_Filename(Pics(counter));
+      end loop;
+   end if;
 
 end JpegByDate;

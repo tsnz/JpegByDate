@@ -14,14 +14,15 @@ package Config is
    type PROGRAM_CONFIG is tagged private;
 
    function Create_Config
-     (Date                : String;
-      Name                : String;
-      Path                : String;
-      Picture_Width       : String;
-      Picture_Height      : String;
-      Filesize            : String;
-      Print_Whole_Path    : Boolean;
-      Search_Is_Recursive : Boolean) return PROGRAM_CONFIG;
+     (Date                    : String;
+      Name                    : String;
+      Path                    : String;
+      Picture_Width           : String;
+      Picture_Height          : String;
+      Filesize                : String;
+      Print_Whole_Path        : Boolean;
+      Search_Is_Recursive     : Boolean;
+      Append_Date_To_Pictures : Boolean) return PROGRAM_CONFIG;
    function Create_Date_For_Config (Date : String) return String;
    function Create_Name_For_Config (Name : String) return Unbounded_String;
    procedure Create_Dimension_For_Config
@@ -41,6 +42,7 @@ package Config is
    function Get_Path (Config : PROGRAM_CONFIG) return String;
    function Get_Print_Whole_Path (Config : PROGRAM_CONFIG) return Boolean;
    function Get_Search_Is_Recursive (Config : PROGRAM_CONFIG) return Boolean;
+   function Get_Append_Date_To_Pictures (Config : PROGRAM_CONFIG) return Boolean;
    function Picture_Matching_Requirements
      (Config : PROGRAM_CONFIG;
       Pic    : PICTURE) return Boolean;
@@ -65,6 +67,7 @@ private
       Picture_Filesize_Operator : Character;
       Print_Whole_Path          : Boolean;
       Search_Is_Recursive       : Boolean;
+      Append_Date_To_Pictures   : Boolean;
    end record;
 
 end Config;

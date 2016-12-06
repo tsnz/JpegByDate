@@ -4,20 +4,22 @@ package body Config is
    -- create a config. Requires date template, name template, path to specified folder, picture width with operator, picture height
    -- with operator and filesize with operator and optionally size
    function Create_Config
-     (Date                : String;
-      Name                : String;
-      Path                : String;
-      Picture_Width       : String;
-      Picture_Height      : String;
-      Filesize            : String;
-      Print_Whole_Path    : Boolean;
-      Search_Is_Recursive : Boolean) return PROGRAM_CONFIG
+     (Date                    : String;
+      Name                    : String;
+      Path                    : String;
+      Picture_Width           : String;
+      Picture_Height          : String;
+      Filesize                : String;
+      Print_Whole_Path        : Boolean;
+      Search_Is_Recursive     : Boolean;
+      Append_Date_To_Pictures : Boolean) return PROGRAM_CONFIG
    is
       My_Config : PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
    begin
 
       My_Config.Print_Whole_Path    := Print_Whole_Path;
       My_Config.Search_Is_Recursive := Search_Is_Recursive;
+      My_Config.Append_Date_To_Pictures := Append_Date_To_Pictures;
       -- use given date to create pattern accordingly
       My_Config.Date := Create_Date_For_Config (Date);
 
@@ -172,6 +174,12 @@ package body Config is
    begin
       return Config.Search_Is_Recursive;
    end Get_Search_Is_Recursive;
+
+   -- returns true if pictures have to be renamed
+   function Get_Append_Date_To_Pictures (Config : PROGRAM_CONFIG) return Boolean is
+   begin
+      return Config.Append_Date_To_Pictures;
+   end Get_Append_Date_To_Pictures;
 
    -- returns switch to check if whole path has to be printed
    function Get_Print_Whole_Path (Config : PROGRAM_CONFIG) return Boolean is

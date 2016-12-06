@@ -2,6 +2,8 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with GNAT.Regexp;           use GNAT.Regexp;
 with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Directories;       use Ada.Directories;
+with Ada.Strings.Maps;      use Ada.Strings.Maps;
 package Pictures is
 
    type PICTURE is tagged private;
@@ -15,6 +17,7 @@ package Pictures is
    function Get_Picture_Height (Pic : PICTURE) return Integer;
    function Get_Picture_Width (Pic : PICTURE) return Integer;
    function Get_Picture_Filesize (Pic : PICTURE) return Long_Integer;
+   procedure Append_Date_To_Filename (Pic : in PICTURE);
    function Create_Picture
      (Filename      : Unbounded_String;
       Path          : Unbounded_String;
