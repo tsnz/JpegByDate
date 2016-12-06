@@ -12,7 +12,7 @@ package body Helpers is
             Append(Return_String, Source(Index));
          end if;
       end loop;
-      -- result is returned
+      -- result is retunred
       return Return_String;
    end String_Replace_Character;
 end Helpers;

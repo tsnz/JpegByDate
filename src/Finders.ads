@@ -16,4 +16,10 @@ package Finders is
       Pic_List       :    out LIST_OF_PICTURES;
       Number_Of_Pics :    out Integer);
 
+   procedure Search_Given_Dir
+     (Path           : in     String;
+      Config         : in     PROGRAM_CONFIG;
+      Pic_List       : in out LIST_OF_PICTURES;
+      Number_Of_Pics : in out Integer);
+
 end Finders;

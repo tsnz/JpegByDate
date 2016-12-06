@@ -73,8 +73,7 @@ procedure JpegByDate is
         (CL_Config,
          Recursion_Enabled'Access,
          "-r",
-         Help =>
-           "Enable recursive search in all subfolders");
+         Help => "Enable recursive search in all subfolders");
       Define_Switch
         (CL_Config,
          Whole_Path_Enabled'Access,
