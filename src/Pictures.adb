@@ -99,6 +99,7 @@ package body Pictures is
       Print_Whole_Path : Boolean)
    is
    begin
+      Put_Line("-----------------");
       -- print whole path if Print_Whole_Path is true
       -- otherwise only print filename
       if Print_Whole_Path then
@@ -106,6 +107,22 @@ package body Pictures is
       else
          Put_Line (To_String (Pic.Filename));
       end if;
+      -- print picture information
+      -- date
+      Put("Date Taken:  ");
+      Put_Line(Pic.Date_Taken);
+      -- width
+      Put("Width:      ");
+      Put(Integer'Image(Pic.Picture_Width));
+      Put_Line("px");
+      -- height
+      Put("Height:     ");
+      Put(Integer'Image(Pic.Picture_Height));
+      -- filesize
+      Put_Line("px");
+      Put("Filesize:   ");
+      Put(Long_Integer'Image(Pic.Filesize));
+      Put_Line(" byte");
    end Print_Picture_To_Console;
 
    -- rename image file and append date to filename

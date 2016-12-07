@@ -17,6 +17,7 @@ package body Config is
       My_Config : PROGRAM_CONFIG; -- instance of config that will be returned after values have been set
    begin
 
+      -- set all variables that dont have to be ckecked for validity
       My_Config.Print_Whole_Path    := Print_Whole_Path;
       My_Config.Search_Is_Recursive := Search_Is_Recursive;
       My_Config.Append_Date_To_Pictures := Append_Date_To_Pictures;
