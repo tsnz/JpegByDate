@@ -1,0 +1,5 @@
+pragma Check_Policy (Precondition, Off);
+pragma Check_Policy (Postcondition, Off);
+pragma Check_Policy (Pre, Off);
+pragma Check_Policy (Post, Off);
+pragma Assertion_Policy (Ghost => Check);

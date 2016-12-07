@@ -1,0 +1,37 @@
+[GENERATED OBJECT FILE]
+b__test_runner.o
+[PROJECT FILES]
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\test_driver.gpr
+20161206222310
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\jpegByDate.gpr
+20161206222054
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\gnattest_common.gpr
+20161206222310
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\test_jpegbydate.gpr
+20161206222310
+C:\gnat\2016\lib\gnat\aunit.gpr
+20160517073136
+[BOUND OBJECT FILES]
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\gnattest_generated.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\test_runner.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\Helpers.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\Pictures.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\Config.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\config-program_config_test_data.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\config-program_config_test_data-program_config_tests.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\config-program_config_test_data-program_config_tests-suite.o
+C:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\gnattest_main_suite.o
+[GENERATED SOURCE FILES]
+b__test_runner.ads
+b__test_runner.adb
+b__test_runner.ali
+[RESULTING OPTIONS]
+-LC:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\
+-LC:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\gnattest\harness\
+-LC:\gnat\2016\lib\aunit\
+-LC:\Users\D062262\Documents\DHBW\3. Modul\Agile Prozesse\JpegByDate\obj\
+-LC:/gnat/2016/lib/gcc/i686-pc-mingw32/4.9.4/adalib/
+-static
+-static-libgcc
+C:/gnat/2016/lib/gcc/i686-pc-mingw32/4.9.4/adalib/libgnat.a
+-Wl,--stack=0x2000000

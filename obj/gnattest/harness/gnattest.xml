@@ -1,0 +1,127 @@
+<tests_mapping mode="monolith">
+   <unit source_file="config.ads">
+      <test_unit target_file="config-program_config_test_data-program_config_tests.ads">
+         <setup file="config-program_config_test_data.adb" line="4"  column="4"/>
+         <teardown file="config-program_config_test_data.adb" line="8"  column="4"/>
+         <tested name="Create_Config" line="16" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="14" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Date_Matching" line="36" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="35" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Name_Matching" line="39" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="56" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Path" line="42" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="77" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Print_Whole_Path" line="43" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="98" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Search_Is_Recursive" line="44" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="119" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Append_Date_To_Pictures" line="45" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="140" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Picture_Matching_Requirements" line="46" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="161" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Dimensions_Matching" line="49" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="182" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Filesize_Matching" line="53" column="4">
+            <test file="config-program_config_test_data-program_config_tests.adb" line="203" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+      <test_unit target_file="config-test_data-tests.ads">
+         <setup file="config-test_data.adb" line="3"  column="4"/>
+         <teardown file="config-test_data.adb" line="9"  column="4"/>
+         <tested name="Create_Date_For_Config" line="26" column="4">
+            <test file="config-test_data-tests.adb" line="14" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Create_Name_For_Config" line="27" column="4">
+            <test file="config-test_data-tests.adb" line="35" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Create_Dimension_For_Config" line="28" column="4">
+            <test file="config-test_data-tests.adb" line="56" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Create_Filesize_For_Config" line="32" column="4">
+            <test file="config-test_data-tests.adb" line="77" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+   <unit source_file="finders.ads">
+      <test_unit target_file="finders-test_data-tests.ads">
+         <setup file="finders-test_data.adb" line="3"  column="4"/>
+         <teardown file="finders-test_data.adb" line="9"  column="4"/>
+         <tested name="Find_Pictures_Matching_Config" line="14" column="4">
+            <test file="finders-test_data-tests.adb" line="14" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Search_Given_Dir" line="19" column="4">
+            <test file="finders-test_data-tests.adb" line="35" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+   <unit source_file="helpers.ads">
+      <test_unit target_file="helpers-test_data-tests.ads">
+         <setup file="helpers-test_data.adb" line="3"  column="4"/>
+         <teardown file="helpers-test_data.adb" line="9"  column="4"/>
+         <tested name="String_Replace_Character" line="3" column="4">
+            <test file="helpers-test_data-tests.adb" line="14" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+   <unit source_file="pictures.ads">
+      <test_unit target_file="pictures-picture_test_data-picture_tests.ads">
+         <setup file="pictures-picture_test_data.adb" line="4"  column="4"/>
+         <teardown file="pictures-picture_test_data.adb" line="8"  column="4"/>
+         <tested name="Get_Aperature" line="11" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="14" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Exposure_Time" line="12" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="35" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Date_Edited" line="13" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="56" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Date_Taken" line="14" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="77" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Picture_Filename" line="15" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="98" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Picture_Path" line="16" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="119" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Picture_Height" line="17" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="140" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Picture_Width" line="18" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="161" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Get_Picture_Filesize" line="19" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="182" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Append_Date_To_Filename" line="20" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="203" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Create_Picture" line="21" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="224" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <tested name="Print_Picture_To_Console" line="31" column="4">
+            <test file="pictures-picture_test_data-picture_tests.adb" line="245" column="1" timestamp="2016-12-06 22:23:10"/>
+         </tested>
+         <dangling>
+         </dangling>
+      </test_unit>
+   </unit>
+</tests_mapping>
